@@ -11,7 +11,6 @@ function Rebuild(){
     
     //Obtenemos el html del build
     fs.readFile(`${process.cwd()}/build/index.html`, 'utf8', (err, html) => {
-        
         // Guradamos en la carpeta el nuevo html
         fs.writeFileSync(`${process.cwd()}/rebuild/rebuild.html`, html.replace('<body>', '<head></head><body>'))
         console.log("El nuevo archivo HTML fue creado exitosamente")
