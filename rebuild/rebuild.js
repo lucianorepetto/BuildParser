@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 function Rebuild(){
     //Creamos la carpeta "rebuild"
@@ -34,7 +35,9 @@ function Rebuild(){
 
                 fs.writeFileSync(`${process.cwd()}/rebuild/rebuild.html`, html)
                 console.log("")
-                console.log("\x1b[32m", "Rebuild HTML fue creado exitosamente", '\x1b[0m')
+                console.log("\x1b[32m", "Compiled successfully. ", '\x1b[0m')
+                console.log("")
+                console.log("\x1b[36m", `./${path.basename(process.cwd())}/rebuild/rebuild.html`, '\x1b[0m')
                 console.log(" ")
 
             })
