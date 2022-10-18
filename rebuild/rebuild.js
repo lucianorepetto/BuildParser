@@ -16,6 +16,8 @@ function Rebuild(){
         //Eliminar los scripts y styles viejos
         const repl_ = html.split('</title>')[1].split('</head>')[0]
         html = html.replace(repl_, '')
+        html = html.replace(/&/g, '&amp;')
+        html = html.replace('<!doctype html>', '<!DOCTYPE html>')
         
         fs.readFile(`${process.cwd()}/build/static/js/${js_file}`, 'utf8', (err, js) => {
             //parsing js
@@ -23,14 +25,14 @@ function Rebuild(){
             console.log('Parging js:', js_file)
 
             arr_html = html.split('</body>')
-            html = arr_html[0] + "<script type='text/javascript'>"+js+'</script></body>' + arr_html[1]
+            html = arr_html[0] + "<script type='text/javascript'>// <![CDATA["+js+"// ]]></script><b:section class='main' id='main' showaddelement='yes'/></body>" + arr_html[1]
 
             fs.readFile(`${process.cwd()}/build/static/css/${css_file}`, 'utf8', (err, css) => {
                 //Parging css
                 console.log('Parging css:', css_file)
 
                 arr_html = html.split('</head>')
-                html = arr_html[0] + `<style>${css}</style></head>` + arr_html[1]
+                html = arr_html[0] + `<b:skin><![CDATA[${css}]]></b:skin></head>` + arr_html[1]
 
                 fs.writeFileSync(`${process.cwd()}/rebuild/rebuild.html`, html)
                 console.log("")
